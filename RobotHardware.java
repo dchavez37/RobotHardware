@@ -86,9 +86,9 @@ public class RobotHardware {
      */
     public void init()    {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        WheelL  = myOpMode.hardwareMap.get(DcMotor.class, "left_drive");
-        WheelR = myOpMode.hardwareMap.get(DcMotor.class, "right_drive");
-        CreakyJoint   = myOpMode.hardwareMap.get(DcMotor.class, "arm");
+        WheelL  = myOpMode.hardwareMap.get(DcMotor.class, "wheel_l");
+        WheelR = myOpMode.hardwareMap.get(DcMotor.class, "wheel_r");
+        CreakyJoint   = myOpMode.hardwareMap.get(DcMotor.class, "creaky_joint");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
@@ -101,8 +101,8 @@ public class RobotHardware {
         // WheelR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Define and initialize ALL installed servos.
-        TheClawww = myOpMode.hardwareMap.get(Servo.class, "left_hand");
-        ExtendoArm = myOpMode.hardwareMap.get(CRServo.class, "right_hand");
+        TheClawww = myOpMode.hardwareMap.get(Servo.class, "the_clawww");
+        ExtendoArm = myOpMode.hardwareMap.get(CRServo.class, "extendo_arm");
         TheClawww.setPosition(MID_SERVO);
         ExtendoArm.setPower(0);
 
