@@ -61,11 +61,11 @@ public class RobotHardware {
     private LinearOpMode myOpMode = null;   // gain access to methods in the calling OpMode.
 
     // Define Motor and Servo objects  (Make them private so they can't be accessed externally)
-    private DcMotor leftDrive   = null;
-    private DcMotor rightDrive  = null;
-    private DcMotor armMotor = null;
-    private Servo   leftHand = null;
-    private CRServo   rightHand = null;
+    private DcMotor WheelL   = null;
+    private DcMotor WheelR  = null;
+    private DcMotor CreakyJoint = null;
+    private Servo   TheClawww = null;
+    private CRServo   ExtendoArm = null;
 
     // Define Drive constants.  Make them public so they CAN be used by the calling OpMode
     public static final double MID_SERVO       =  0.5 ;
@@ -86,25 +86,25 @@ public class RobotHardware {
      */
     public void init()    {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        leftDrive  = myOpMode.hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = myOpMode.hardwareMap.get(DcMotor.class, "right_drive");
-        armMotor   = myOpMode.hardwareMap.get(DcMotor.class, "arm");
+        WheelL  = myOpMode.hardwareMap.get(DcMotor.class, "left_drive");
+        WheelR = myOpMode.hardwareMap.get(DcMotor.class, "right_drive");
+        CreakyJoint   = myOpMode.hardwareMap.get(DcMotor.class, "arm");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        WheelL.setDirection(DcMotor.Direction.REVERSE);
+        WheelR.setDirection(DcMotor.Direction.FORWARD);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
-        // leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // WheelL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // WheelR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Define and initialize ALL installed servos.
-        leftHand = myOpMode.hardwareMap.get(Servo.class, "left_hand");
-        rightHand = myOpMode.hardwareMap.get(CRServo.class, "right_hand");
-        leftHand.setPosition(MID_SERVO);
-        rightHand.setPower(0);
+        TheClawww = myOpMode.hardwareMap.get(Servo.class, "left_hand");
+        ExtendoArm = myOpMode.hardwareMap.get(CRServo.class, "right_hand");
+        TheClawww.setPosition(MID_SERVO);
+        ExtendoArm.setPower(0);
 
         myOpMode.telemetry.addData(">", "Hardware Initialized");
         myOpMode.telemetry.update();
@@ -143,8 +143,8 @@ public class RobotHardware {
      */
     public void setDrivePower(double leftWheel, double rightWheel) {
         // Output the values to the motor drives.
-        leftDrive.setPower(leftWheel);
-        rightDrive.setPower(rightWheel);
+        WheelL.setPower(leftWheel);
+        WheelR.setPower(rightWheel);
     }
 
     /**
@@ -153,7 +153,7 @@ public class RobotHardware {
      * @param power driving power (-1.0 to 1.0)
      */
     public void setArmPower(double power) {
-        armMotor.setPower(power);
+        CreakyJoint.setPower(power);
     }
 
     /**
@@ -163,8 +163,8 @@ public class RobotHardware {
      */
     public void setHandPositions(double offset) {
         offset = Range.clip(offset, -0.5, 0.5);
-        leftHand.setPosition(MID_SERVO + offset);
-        rightHand.setPosition(MID_SERVO - offset);
+        TheClawww.setPosition(MID_SERVO + offset);
+        ExtendoArm.setPosition(MID_SERVO - offset);
     }
 }
 
